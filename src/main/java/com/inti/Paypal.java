@@ -13,8 +13,11 @@ import javax.persistence.Table;
 //@DiscriminatorValue("1")
 
 // methode 2
+//@Table
+//@PrimaryKeyJoinColumn(name = "idPaiement")
+
+// methode 3 
 @Table
-@PrimaryKeyJoinColumn(name = "idPaiement")
 public class Paypal extends Paiement {
 
 	private int numeroCompte;

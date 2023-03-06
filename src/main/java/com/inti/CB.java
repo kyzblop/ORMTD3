@@ -12,8 +12,11 @@ import javax.persistence.Table;
 //@DiscriminatorValue("2")
 
 // methode 2
+//@Table
+//@PrimaryKeyJoinColumn(name = "idPaiement")
+
+// methode 3
 @Table
-@PrimaryKeyJoinColumn(name = "idPaiement")
 public class CB extends Paiement{
 
 	private int numeroCarte;

@@ -14,18 +14,22 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
 @Entity
-@Table
+//@Table
 // methode 1
 //@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 //@DiscriminatorColumn(name = "discriminator", discriminatorType = DiscriminatorType.INTEGER)
 //@DiscriminatorValue("0")
 
 // methode 2
-@Inheritance(strategy = InheritanceType.JOINED)
-public class Paiement {
+//@Inheritance(strategy = InheritanceType.JOINED)
+
+// methode 3
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+
+public abstract class Paiement {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int idPaiement;
 	private double montant;
 	private LocalDate date;

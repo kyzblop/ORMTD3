@@ -50,7 +50,7 @@ public class PaiementServlet extends HttpServlet {
 			s.beginTransaction();
 			
 //			Paypal p1 = new Paypal(15, LocalDate.of(2022, 06, 15), 123456);
-			CB p1 = new CB(20, LocalDate.of(2023,  12, 6), 456789, LocalDate.of(2025,  1, 14));
+			CB p1 = new CB(20, LocalDate.of(2017,  12, 6), 456789, LocalDate.of(2025,  1, 14));
 			
 			s.save(p1);
 			log.info("Transaction effectuée");
