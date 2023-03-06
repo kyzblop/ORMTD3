@@ -19,5 +19,9 @@
         <mapping class="com.inti.Role"/>
         <mapping class="com.inti.UAbonne"/>
         <mapping class="com.inti.UVip"/>
+        
+        <mapping class="com.inti.Paiement"/>
+        <mapping class="com.inti.Paypal"/>
+        <mapping class="com.inti.CB"/>
     </session-factory>
 </hibernate-configuration>
