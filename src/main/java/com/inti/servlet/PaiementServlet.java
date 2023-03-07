@@ -43,16 +43,31 @@ public class PaiementServlet extends HttpServlet {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
 		
+		this.getServletContext().getRequestDispatcher("/WEB-INF/paiement.jsp").forward(request, response);
 		
-		s = HibernateUtil.getSessionFactory().openSession();
+		
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+s = HibernateUtil.getSessionFactory().openSession();
 		
 		try {
 			s.beginTransaction();
 			
 //			Paypal p1 = new Paypal(15, LocalDate.of(2022, 06, 15), 123456);
-			CB p1 = new CB(20, LocalDate.of(2017,  12, 6), 456789, LocalDate.of(2025,  1, 14));
+//			CB p1 = new CB(20, LocalDate.of(2017,  12, 6), 456789, LocalDate.of(2025,  1, 14));
 			
-			s.save(p1);
+			if(request.getParameter("moyen").equals("CB")) {
+				CB p1 = new CB(Double.valueOf(request.getParameter("montant")), LocalDate.parse(request.getParameter("dateCom")), Integer.valueOf(request.getParameter("numCarte")), LocalDate.parse(request.getParameter("dateExp")));
+				s.save(p1);
+			} else {
+				Paypal p1 = new Paypal(Double.valueOf(request.getParameter("montant")), LocalDate.parse(request.getParameter("dateCom")), Integer.valueOf(request.getParameter("numCompte")));
+				s.save(p1);
+			}
+			
 			log.info("Transaction effectuée");
 			
 			s.getTransaction().commit();
@@ -61,15 +76,6 @@ public class PaiementServlet extends HttpServlet {
 			log.info("Transaction annulée");
 			s.getTransaction().rollback();
 		}
-		
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 
 }

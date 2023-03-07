@@ -1,6 +1,7 @@
 package com.inti;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
@@ -25,6 +28,12 @@ public class Commande {
 	@JoinColumn(name = "idU")
 	private Utilisateur utilisateur;
 	
+	@OneToOne
+	private Paiement paiement;
+	
+	@OneToMany(mappedBy = "commande", targetEntity = Article.class)
+	private List<Article> listeArticle;
+	
 	public Commande() {
 		super();
 	}
@@ -32,6 +41,13 @@ public class Commande {
 		super();
 		this.description = description;
 		this.date = date;
+	}
+	
+	public Commande(LocalDate date, Utilisateur utilisateur,List<Article> listeArticle) {
+		super();
+		this.date = date;
+		this.utilisateur = utilisateur;
+		this.listeArticle = listeArticle;
 	}
 	public int getIdCommande() {
 		return idCommande;
@@ -57,6 +73,19 @@ public class Commande {
 	}
 	public void setUtilisateur(Utilisateur utilisateur) {
 		this.utilisateur = utilisateur;
+	}
+	
+	public Paiement getPaiement() {
+		return paiement;
+	}
+	public void setPaiement(Paiement paiement) {
+		this.paiement = paiement;
+	}
+	public List<Article> getListeArticle() {
+		return listeArticle;
+	}
+	public void setListeArticle(List<Article> listeArticle) {
+		this.listeArticle = listeArticle;
 	}
 	@Override
 	public String toString() {

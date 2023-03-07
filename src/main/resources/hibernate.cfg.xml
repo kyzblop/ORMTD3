@@ -23,5 +23,6 @@
         <mapping class="com.inti.Paiement"/>
         <mapping class="com.inti.Paypal"/>
         <mapping class="com.inti.CB"/>
+        <mapping class="com.inti.Article"/>
     </session-factory>
 </hibernate-configuration>

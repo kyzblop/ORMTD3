@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -33,6 +34,9 @@ public abstract class Paiement {
 	private int idPaiement;
 	private double montant;
 	private LocalDate date;
+	
+	@OneToOne
+	private Commande commande;
 	
 	public Paiement() {
 		super();

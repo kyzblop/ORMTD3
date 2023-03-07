@@ -24,9 +24,15 @@
 				aria-describedby="emailHelp" name="idClient">
 		</div>
 		<div class="mb-3">
-			<label for="desc" class="form-label">Description</label> <input
-				type="text" class="form-control" id="desc"
-				aria-describedby="emailHelp" name="description">
+			<label for="article" class="form-label">Article</label> <input
+				type="text" class="form-control" id="article"
+				aria-describedby="emailHelp" name="article">
+		</div>
+		
+		<div class="mb-3">
+			<label for="prix" class="form-label">Prix</label> <input
+				type="number" class="form-control" id="prix"
+				aria-describedby="emailHelp" name="prix">
 		</div>
 		<div class="mb-3">
 			<label for="date" class="form-label">Date de la commande</label> <input
