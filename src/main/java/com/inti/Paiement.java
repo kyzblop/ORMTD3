@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -35,7 +36,7 @@ public abstract class Paiement {
 	private double montant;
 	private LocalDate date;
 	
-	@OneToOne
+	@OneToOne(mappedBy = "paiement")
 	private Commande commande;
 	
 	public Paiement() {
@@ -63,6 +64,13 @@ public abstract class Paiement {
 	}
 	public void setDate(LocalDate date) {
 		this.date = date;
+	}
+	
+	public Commande getCommande() {
+		return commande;
+	}
+	public void setCommande(Commande commande) {
+		this.commande = commande;
 	}
 	@Override
 	public String toString() {

@@ -16,7 +16,10 @@ import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 
 import com.inti.Article;
+import com.inti.CB;
 import com.inti.Commande;
+import com.inti.Paiement;
+import com.inti.Paypal;
 import com.inti.Utilisateur;
 import com.inti.util.HibernateUtil;
 
@@ -56,13 +59,26 @@ public class CommandeServlet extends HttpServlet {
 			int idClient = Integer.valueOf(request.getParameter("idClient"));
 			
 			Utilisateur user1 = s.get(Utilisateur.class, idClient);
+			log.info("user1" + user1);
 			
 			//Commande com = new Commande(request.getParameter("description"), LocalDate.parse(request.getParameter("dateCom")));
 			
 			List<Article> listeArticle = new ArrayList<>();
 			listeArticle.add(new Article(request.getParameter("article"),Integer.valueOf(request.getParameter("prix"))));
 			Commande com = new Commande(LocalDate.parse(request.getParameter("dateCom")), user1, listeArticle);
+			Paiement p1 = null;
 			
+			if(request.getParameter("moyen").equals("CB")) {
+				p1 = new CB(Double.valueOf(request.getParameter("prix")), LocalDate.parse(request.getParameter("dateCom")), Integer.valueOf(request.getParameter("numCarte")), LocalDate.parse(request.getParameter("dateExp")));
+//				p1.setCommande(com);
+//				s.save(p1);
+			} else {
+				p1 = new Paypal(Double.valueOf(request.getParameter("prix")), LocalDate.parse(request.getParameter("dateCom")), Integer.valueOf(request.getParameter("numCompte")));
+//				p1.setCommande(com);
+//				s.save(p1);
+			}
+			
+			com.setPaiement(p1);
 			com.setUtilisateur(user1);
 			
 			s.save(com);

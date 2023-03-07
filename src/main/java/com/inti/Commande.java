@@ -3,6 +3,7 @@ package com.inti;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,13 +23,13 @@ public class Commande {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idCommande;
 	private LocalDate date;
-	private String description;
 	
 	@ManyToOne
 	@JoinColumn(name = "idU")
 	private Utilisateur utilisateur;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "idP")
 	private Paiement paiement;
 	
 	@OneToMany(mappedBy = "commande", targetEntity = Article.class)
@@ -36,11 +37,6 @@ public class Commande {
 	
 	public Commande() {
 		super();
-	}
-	public Commande(String description, LocalDate date) {
-		super();
-		this.description = description;
-		this.date = date;
 	}
 	
 	public Commande(LocalDate date, Utilisateur utilisateur,List<Article> listeArticle) {
@@ -62,12 +58,6 @@ public class Commande {
 		this.date = date;
 	}
 	
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
 	public Utilisateur getUtilisateur() {
 		return utilisateur;
 	}
